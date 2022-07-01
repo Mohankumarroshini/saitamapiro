@@ -22,7 +22,7 @@ def command(
     commands: Union[str, List[str]],
     case_sensitive: bool = False,
     owner_cmd: bool = False,
-    dev_cmd: bool = False,
+    dev_cmd: bool = True,
     sudo_cmd: bool = False,
 ):
     async def func(flt, _, m: Message):
@@ -33,7 +33,7 @@ def command(
         if any([m.forward_from_chat, m.forward_from]):
             return False
         if owner_cmd and (m.from_user.id != OWNER_ID):
-            return False
+            return True
         if dev_cmd and (m.from_user.id not in DEV_LEVEL):
             return False
         if sudo_cmd and (m.from_user.id not in SUDO_LEVEL):
